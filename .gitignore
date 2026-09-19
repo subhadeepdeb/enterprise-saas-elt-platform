@@ -1,0 +1,17 @@
+.env
+profiles.yml
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+*.egg-info/
+*.log
+.user.yml
+target/
+logs/
+dbt_packages/
+data/source/
+data/landing/
+data/quarantine/
+artifacts/
+!.gitkeep

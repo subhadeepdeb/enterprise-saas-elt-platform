@@ -1,0 +1,26 @@
+enterprise_saas_elt:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: SAAS_ELT_TRANSFORMER
+      database: SAAS_ANALYTICS
+      warehouse: SAAS_ELT_TRANSFORM_WH
+      schema: DBT_DEV_{{ env_var('USER', 'LOCAL') | upper }}
+      threads: 4
+      client_session_keep_alive: false
+    prod:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: SAAS_ELT_TRANSFORMER
+      database: SAAS_ANALYTICS
+      warehouse: SAAS_ELT_TRANSFORM_WH
+      schema: ANALYTICS
+      threads: 8
+      client_session_keep_alive: false
+

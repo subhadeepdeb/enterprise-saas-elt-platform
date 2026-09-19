@@ -1,0 +1,39 @@
+name: enterprise_saas_elt
+version: 1.0.0
+config-version: 2
+
+profile: enterprise_saas_elt
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests/dbt"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: target
+clean-targets: ["target", "dbt_packages"]
+
+vars:
+  event_lookback_days: 3
+  ai_input_token_price_per_million: 3.0
+  ai_output_token_price_per_million: 10.0
+
+models:
+  enterprise_saas_elt:
+    staging:
+      +materialized: view
+      +schema: staging
+      +tags: ["staging"]
+    intermediate:
+      +materialized: ephemeral
+      +tags: ["intermediate"]
+    marts:
+      +schema: analytics
+      +materialized: table
+      +tags: ["marts"]
+
+snapshots:
+  enterprise_saas_elt:
+    +target_schema: snapshots
+
